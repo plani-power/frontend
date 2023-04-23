@@ -9,8 +9,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:prettier/recommended',
-    'prettier/prettier',
+    // 'plugin:prettier/recommended',
   ],
   plugins: ['prettier'],
   parserOptions: {
@@ -22,6 +21,7 @@ module.exports = {
       {
         endOfLine: 'auto',
         tabWidth: 2,
+        useTabs: true,
         semi: true,
         singleQuote: true,
         trailingComma: 'all',

@@ -1,6 +1,6 @@
-import { ROUTES } from "constants/global";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { ROUTES } from 'constants/global';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const navMenus = [
     { name: ROUTES.main.name, url: ROUTES.main.url },
@@ -11,7 +11,7 @@ const HeaderBar = styled.header`
     width: 100%;
     height: 40px;
     padding: 10px 20px;
-    border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid #e5e5e5;
     button {
         display: block;
         margin-left: auto;
@@ -29,7 +29,7 @@ const Header = () => {
         <>
             <HeaderBar>
                 <button>
-                    <span className="material-symbols-outlined ">menu</span>
+                    <span className='material-symbols-outlined '>menu</span>
                 </button>
             </HeaderBar>
             <ul>

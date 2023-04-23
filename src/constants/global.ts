@@ -4,17 +4,17 @@ export const ROUTES = {
     main: {
         value: 'main',
         url: '/',
-        name: 'Home'
+        name: 'Home',
     },
     // login: {
-    //     value: 'Login',
-    //     url: '/auth/login',
-    //     name: '로그인'
+    // value: 'Login',
+    // url: '/auth/login',
+    // name: '로그인'
     // },
     // signUp: {
-    //     value: 'SignUp',
-    //     url: '/auth/signup',
-    //     name: '회원가입'
+    // value: 'SignUp',
+    // url: '/auth/signup',
+    // name: '회원가입'
     // },
     plans: {
         value: 'Plans',
