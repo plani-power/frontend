@@ -1,5 +1,15 @@
+import axios from "axios";
+
 const MainPage = () => {
-	return <p>메인페이지입니다</p>;
+
+	const test = async()=> {
+		const res = axios.get('https://9490-14-7-11-24.ngrok-free.app/plans')
+	}
+
+
+	return <>
+		<button onClick={test}>누르거랑</button>
+	</>;
 }
 
 export default MainPage;

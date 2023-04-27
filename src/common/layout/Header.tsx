@@ -91,7 +91,7 @@ const Header = () => {
     return (
         <>
             <HeaderBar>
-                <Button onClick={() => { setShowMenu(!showMenu) }}>
+                <Button onClick={() => { console.log(showMenu); setShowMenu(!showMenu) }}>
                     {/* <span className='material-symbols-outlined '>menu</span> */}
                     <span className={showMenu ? '' : 'active'}></span>
                     <span className={showMenu ? '' : 'active'}></span>
@@ -101,7 +101,7 @@ const Header = () => {
             <Draw className={showMenu ? '' : 'active'}>
                 <ul>
                     {navMenus.map((menu) => (
-                        <Link to={menu.url}>
+                        <Link to={menu.url} key={menu.url}>
                             <li>{menu.name}</li>
                         </Link>
                     ))}
