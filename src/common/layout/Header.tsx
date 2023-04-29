@@ -8,9 +8,14 @@ const navMenus = [
     { name: ROUTES.plans.name, url: ROUTES.plans.url },
 ];
 
-const HeaderBar = styled.header`
+const HeaderWrapper = styled.div`
     width: 100%;
     height: 41px;
+    position: relative;
+`
+const HeaderBar = styled.header`
+    width: 100%;
+    height: 100%;
     padding: 10px 20px;
     border-bottom: 1px solid #e5e5e5;
     button {
@@ -19,8 +24,11 @@ const HeaderBar = styled.header`
     }
 `
 const Draw = styled.div`
+    position: relative;
+    top: 41px;
+    right: 0;
     width: 0px;
-    height: 100vh;
+    height: calc( 100vh - 41px);
     padding: 50px 0;
     opacity: 0;
     margin-top: -40px;
@@ -38,16 +46,18 @@ const Draw = styled.div`
 const Button = styled.button`
 z-index: 2;
 display: block;
-    width: 20px;
+    width: 28px;
     height: 20px;
     padding: 0;
     background-color: inherit;
+    cursor: pointer;
+    overflow: hidden;
 span {
     background-color: #333;
     display: block;
     width: 100%;
     height: 2px;
-    transition: all .2s;
+    transition: all .3s ease-in-out;
     box-sizing: border-box;
     border-radius: 4px;
 }
@@ -87,18 +97,19 @@ span:nth-of-type(1).active {
 const Header = () => {
 
     const [showMenu, setShowMenu] = useState(false);
+    const onClickHamberger = () => {
+        setShowMenu(!showMenu);
+
+    }
 
     return (
-        <>
+        <HeaderWrapper>
             <HeaderBar>
-                <Button onClick={() => { console.log(showMenu); setShowMenu(!showMenu) }}>
-                    {/* <span className='material-symbols-outlined '>menu</span> */}
-                    <span className={showMenu ? '' : 'active'}></span>
-                    <span className={showMenu ? '' : 'active'}></span>
-                    <span className={showMenu ? '' : 'active'}></span>
+                <Button onClick={onClickHamberger}>
+                {[...Array(3)].map((n, index) => <span className={showMenu ? 'active' : ''}></span>)}
                 </Button>
             </HeaderBar>
-            <Draw className={showMenu ? '' : 'active'}>
+            <Draw className={showMenu ? 'active' : ''}>
                 <ul>
                     {navMenus.map((menu) => (
                         <Link to={menu.url} key={menu.url}>
@@ -107,7 +118,7 @@ const Header = () => {
                     ))}
                 </ul>
             </Draw>
-        </>
+        </HeaderWrapper>
     );
 };
 
