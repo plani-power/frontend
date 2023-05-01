@@ -4,6 +4,7 @@ import PlansPage from '../pages/plans/PlansPage';
 import PlanPage from '../pages/plans/PlanPage';
 import MainPage from 'pages/main/MainPage';
 import Layout from 'common/layout/Layout';
+import CreatePlan from '../pages/plans/createPlan';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
               element: <PlanPage />,
             },
           ]
+      },
+      {
+        path: 'plans/createPlan',
+        element: <CreatePlan />,
       }
     ]
   }
