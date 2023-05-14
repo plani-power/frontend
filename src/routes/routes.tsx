@@ -26,7 +26,7 @@ const router = createBrowserRouter([
           ]
       },
       {
-        path: 'plans/createPlan',
+        path: ROUTES.plans.create.url,
         element: <CreatePlan />,
       }
     ]

@@ -1,5 +1,6 @@
 export const DEFAULT_URL = 'http://localhost:3000';
 
+const _plans = '/plans'
 export const ROUTES = {
     main: {
         value: 'main',
@@ -18,7 +19,12 @@ export const ROUTES = {
     // },
     plans: {
         value: 'Plans',
-        url: '/plans',
-        name: '플랜'
+        url: _plans,
+        name: '플랜',
+        create: {
+            url: `${_plans}/create`,
+            name: '플랜 생성하기'
+        }
     },
+
 }
