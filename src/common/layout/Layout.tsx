@@ -3,7 +3,7 @@ import Footer from './Footer';
 import Header from './Header';
 import styled from 'styled-components';
 
-const Body = styled.div`
+const Wrapper = styled.div`
     width: 100%;
     max-width: 420px;
     height: 100vh;
@@ -11,14 +11,22 @@ const Body = styled.div`
     margin: 0 auto;
 `
 
+const Body = styled.div`
+    width: 100%;    
+    height: 100%;
+    padding: 10px 20px;
+`
+
 const Layout = () => {
 
     return (
-        <Body>
+        <Wrapper>
             <Header />
-            <Outlet />
+            <Body>
+                <Outlet />
+            </Body>
             <Footer />
-        </Body>
+        </Wrapper>
     )
 }
 
