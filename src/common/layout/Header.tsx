@@ -97,16 +97,16 @@ span:nth-of-type(1).active {
 const Header = () => {
 
     const [showMenu, setShowMenu] = useState(false);
+    console.log({showMenu})
     const onClickHamberger = () => {
         setShowMenu(!showMenu);
-
     }
 
     return (
         <HeaderWrapper>
             <HeaderBar>
                 <Button onClick={onClickHamberger}>
-                {[...Array(3)].map((n, index) => <span className={showMenu ? 'active' : ''}></span>)}
+                {[...Array(3)].map((n, index) => <span key={`bar-${index}`} className={showMenu ? 'active' : ''}></span>)}
                 </Button>
             </HeaderBar>
             <Draw className={showMenu ? 'active' : ''}>
