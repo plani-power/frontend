@@ -45,7 +45,7 @@ const InputContainer = styled.div`
 `
 
 
-const Input : React.FC<InputProps> = ({label, value, onChange, type, placeholder})=> {
+const Input  = ({label, value, onChange, type, placeholder}:InputProps)=> {
     return (
         <InputWrapper>
             <InputLabel>{label}</InputLabel>
