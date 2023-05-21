@@ -1,6 +1,6 @@
 import { ROUTES } from 'constants/global';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const navMenus = [
@@ -90,8 +90,6 @@ span:nth-of-type(1).active {
     -webkit-transform : translateY(-3px) rotate(45deg);
     transform : translateY(-3px) rotate(45deg);
   }
-
-
 `
 
 const Header = () => {
@@ -112,7 +110,7 @@ const Header = () => {
             <Draw className={showMenu ? 'active' : ''}>
                 <ul>
                     {navMenus.map((menu) => (
-                        <Link to={menu.url} key={menu.url}>
+                        <Link onClick={()=>{setShowMenu(false)}} to={menu.url} key={menu.url}>
                             <li>{menu.name}</li>
                         </Link>
                     ))}
