@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
     width: 100%;
     max-width: 420px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: white;
     margin: 0 auto;
 `
