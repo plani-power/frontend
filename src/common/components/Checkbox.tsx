@@ -10,11 +10,13 @@ interface CheckboxProps {
 
 // style
 const StyledInput = styled.input`
+    display: flex;
     appearance: none;
     width 1.5rem;
     height: 1.5rem;
     border: 1.5px solid gainsboro;
     border-radius: 0.35rem;
+    cursor: pointer;
 
     &:checked {
         border-color: transparent;
@@ -36,8 +38,11 @@ const StyledP = styled.p`
     margin-left: 0.25rem;
 `;
 
+
+
 const Checkbox = ({id,checked, onChange, label}:CheckboxProps)=>{
     return (
+            
             <InputLabel htmlFor={id}>
                 <StyledInput type="checkbox" id={id} onChange={onChange} checked={checked} />
                 <StyledP>{label}</StyledP>
