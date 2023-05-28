@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../../common/components/Input'
 import Checkbox from 'common/components/Checkbox';
+import Radio from 'common/components/Radio';
 import styled from 'styled-components';
 
 
@@ -34,7 +35,20 @@ const CreatePlan = () => {
         setIsChecked(!isChecked);
         checkedItemHandler(id, e.target.checked);
     };
-    
+
+    const tempPost = 0
+    const radioLabel = ['공개', '비공개'];
+    const [isPublic, setIsPublic] = useState(tempPost === 0 ? '공개' : '비공개');
+    const [publicValue, renderPublicChecks] = Radio(
+        radioLabel,
+        'isPublic', 
+        isPublic
+      );
+
+    useEffect(()=>{
+        setIsPublic(publicValue === '공개' ? '공개' : '비공개');
+    }, [isPublic, publicValue])
+
     // style
     const InputWrapper = styled.div`
         height: 3rem;
@@ -72,6 +86,9 @@ const CreatePlan = () => {
                 <StyledSpan>모임 시간대</StyledSpan>
                 <InputWrapper>
                     <Checkbox id='allDay' onChange={(e)=>checkHandler(e, 'allDay')} checked={checkedItems.includes('allDay')} label='기본시간(all day)'/>
+                </InputWrapper>
+                <InputWrapper>
+                    {renderPublicChecks()}
                 </InputWrapper>
             </Wrapper>
         </div>
