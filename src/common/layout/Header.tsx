@@ -1,6 +1,6 @@
 import { ROUTES } from 'constants/global';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const navMenus = [
@@ -90,29 +90,27 @@ span:nth-of-type(1).active {
     -webkit-transform : translateY(-3px) rotate(45deg);
     transform : translateY(-3px) rotate(45deg);
   }
-
-
 `
 
 const Header = () => {
 
     const [showMenu, setShowMenu] = useState(false);
+    console.log({showMenu})
     const onClickHamberger = () => {
         setShowMenu(!showMenu);
-
     }
 
     return (
         <HeaderWrapper>
             <HeaderBar>
                 <Button onClick={onClickHamberger}>
-                {[...Array(3)].map((n, index) => <span className={showMenu ? 'active' : ''}></span>)}
+                {[...Array(3)].map((n, index) => <span key={`bar-${index}`} className={showMenu ? 'active' : ''}></span>)}
                 </Button>
             </HeaderBar>
             <Draw className={showMenu ? 'active' : ''}>
                 <ul>
                     {navMenus.map((menu) => (
-                        <Link to={menu.url} key={menu.url}>
+                        <Link onClick={()=>{setShowMenu(false)}} to={menu.url} key={menu.url}>
                             <li>{menu.name}</li>
                         </Link>
                     ))}
