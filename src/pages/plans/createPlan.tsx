@@ -3,6 +3,7 @@ import Input from '../../common/components/Input'
 import Checkbox from 'common/components/Checkbox';
 import Radio from 'common/components/Radio';
 import styled from 'styled-components';
+import DatePicker from 'common/components/DatePicker';
 
 
 const CreatePlan = () => {
@@ -90,6 +91,11 @@ const CreatePlan = () => {
                 <InputWrapper>
                     {renderPublicChecks()}
                 </InputWrapper>
+
+            </Wrapper>
+            <Wrapper>
+                <DatePicker></DatePicker>
+
             </Wrapper>
         </div>
     )
