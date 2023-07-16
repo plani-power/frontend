@@ -7,8 +7,12 @@ import getMonth from "date-fns/getMonth";
 import styled from "styled-components";
 import {FaAngleLeft, FaAngleRight} from 'react-icons/fa';
 
-const DatePicker = () => {
-    const [currentDate, setCurrentDate] = useState<Date | null>(new Date());
+interface DatePickerProps {
+    date:Date;
+    getDate:(date:Date)=>void;
+}
+const DatePicker = ({date, getDate}:DatePickerProps) => {
+    const [currentDate, setCurrentDate] = useState<Date>(date);
     const calendar = useRef<ReactDatePicker>(null)
    
     // 취소버튼
@@ -17,21 +21,11 @@ const DatePicker = () => {
         if(calendar?.current){
             calendar.current.setOpen(false);
         }
-        
     }
 
     const openDatePicker  = () => {
         if(calendar?.current){
             calendar.current.setOpen(true);
-        }
-        
-    }
-
-    // 선택버튼
-    const closeDatePicker = () => {
-        setCurrentDate(currentDate);
-        if(calendar?.current){
-            calendar.current.setOpen(false);
         }
     }
 
@@ -48,27 +42,31 @@ const DatePicker = () => {
         font-size: 1rem;
     `
 
-    const StyledButton = styled.div`
-        /* 공통 스타일 */
-        display: inline-flex;
-        outline: none;
-        border: none;
-        border-radius: 4px;
-        color: black;
-        font-weight: bold;
+    const StyledButton = styled.button`
         cursor: pointer;
-        padding-left: 1rem;
-        padding-right: 1rem;
     `
 
-    return (
+    const ButtonWrapper = styled.div`
+        text-align:right;
+        margin: 5px 7px 0px 0px;
+    `
 
+    const onChange= (date:Date | null) => {
+        if(date !== null){
+            setCurrentDate(date);
+            getDate(date);
+        }
+    }
+
+
+    return (
         <ReactDatePicker
             withPortal
             locale={ko}
             dateFormat='yyyy.MM.dd(eee)'
             selected={currentDate}
-            onChange={(date) => setCurrentDate(date)}
+            minDate={new Date()}
+            onChange={(date)=>{onChange(date)}}
             // shouldCloseOnSelect={false}
             useWeekdaysShort={true}
             ref={calendar}
@@ -79,23 +77,21 @@ const DatePicker = () => {
                 increaseMonth,
             })=>(
                 <div>
-                    <div>
-                        <button onClick={cancelDatePicker}>X</button>
-                    </div>
+                    <ButtonWrapper>
+                        <StyledButton onClick={cancelDatePicker}>X</StyledButton>
+                    </ButtonWrapper>
                     <HeaderWrapper>
                         
                         <div
-                            // className="btn_month btn_month-prev"
                             onClick={decreaseMonth}
                         >
                             <FaAngleLeft />
                         </div>
                         <YearMonthTitle>
-                            {getYear(date)}.{[getMonth(date)]}
+                            {getYear(date)}.{[getMonth(date)+1]}
                         </YearMonthTitle>
                             
                         <div
-                            // className="btn_month btn_month-next"
                             onClick={increaseMonth}
                         >
                             <FaAngleRight />
@@ -104,7 +100,6 @@ const DatePicker = () => {
                 </div>
             )}
             >
-            
         </ReactDatePicker>
 
     )
