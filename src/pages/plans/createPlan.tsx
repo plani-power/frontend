@@ -3,6 +3,7 @@ import Input from '../../common/components/Input'
 import Checkbox from 'common/components/Checkbox';
 import Radio from 'common/components/Radio';
 import styled from 'styled-components';
+import DatePicker from 'common/components/DatePicker';
 
 
 const CreatePlan = () => {
@@ -36,9 +37,8 @@ const CreatePlan = () => {
         checkedItemHandler(id, e.target.checked);
     };
 
-    const tempPost = 0
     const radioLabel = ['공개', '비공개'];
-    const [isPublic, setIsPublic] = useState(tempPost === 0 ? '공개' : '비공개');
+    const [isPublic, setIsPublic] = useState('공개');
     const [publicValue, renderPublicChecks] = Radio(
         radioLabel,
         'isPublic', 
@@ -49,6 +49,16 @@ const CreatePlan = () => {
         setIsPublic(publicValue === '공개' ? '공개' : '비공개');
     }, [isPublic, publicValue])
 
+    const [startDate, setStartDate] = useState<Date>(new Date());
+    const [endDate, setEndDate] = useState<Date>(new Date());
+
+    const getStartDate = (start:Date) => {
+        setStartDate(start);
+    }
+
+    const getEndDate = (end:Date) => {
+        setEndDate(end);
+    }
     // style
     const InputWrapper = styled.div`
         height: 3rem;
@@ -58,10 +68,7 @@ const CreatePlan = () => {
         gap:50px;
     `;
 
-    const Wrapper = styled.div`
-
     
-    `
     const  StyledSpan = styled.span`
         font-weight: 400;
         font-size: 14px;   
@@ -75,22 +82,24 @@ const CreatePlan = () => {
             </p>
             <Input type='text' label='플랜명' value={planName} onChange={changePlanName} placeholder='플랜명을 입력하세요'/>
             <Input type='text' label='해시태그' value={hashtag} onChange={changeHashtag} placeholder='해시태그를 입력하세요'/>
-            <Wrapper>
                 <StyledSpan>모임타임</StyledSpan>
                 <InputWrapper>
                     <Checkbox id='online' onChange={(e)=>checkHandler(e, 'online')} checked={checkedItems.includes('online')} label='온라인'/>
                     <Checkbox id='offline' onChange={(e)=>checkHandler(e, 'offline')} checked={checkedItems.includes('offline')} label='오프라인'/>
                 </InputWrapper>
-            </Wrapper>
-            <Wrapper>
                 <StyledSpan>모임 시간대</StyledSpan>
                 <InputWrapper>
                     <Checkbox id='allDay' onChange={(e)=>checkHandler(e, 'allDay')} checked={checkedItems.includes('allDay')} label='기본시간(all day)'/>
                 </InputWrapper>
+            <StyledSpan>공개여부</StyledSpan>
+            <InputWrapper>
+                {renderPublicChecks()}
+            </InputWrapper>
+            <StyledSpan>시작일과 종료일</StyledSpan>
                 <InputWrapper>
-                    {renderPublicChecks()}
+                <DatePicker date={startDate} getDate={(date)=>getStartDate(date)}></DatePicker>
+                <DatePicker date={endDate} getDate={(date)=>getEndDate(date)} ></DatePicker>
                 </InputWrapper>
-            </Wrapper>
         </div>
     )
 }
