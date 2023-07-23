@@ -59,6 +59,11 @@ const CreatePlan = () => {
     const getEndDate = (end:Date) => {
         setEndDate(end);
     }
+
+    const [textValue, setTextValue] = useState('');
+    const handleSetTextValue = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTextValue(e.target.value);
+    }
     // style
     const InputWrapper = styled.div`
         height: 3rem;
@@ -69,10 +74,17 @@ const CreatePlan = () => {
     `;
 
     
-    const  StyledSpan = styled.span`
+    const StyledSpan = styled.span`
         font-weight: 400;
         font-size: 14px;   
         margin: 20px 0 6px; 
+    `
+
+    const StyledTextArea = styled.textarea`
+        width: 250px;
+        height: 200px;
+        resize: none;
+        display: block;
     `
 
     return (
@@ -81,25 +93,28 @@ const CreatePlan = () => {
                 플랜 생성하기 페이지
             </p>
             <Input type='text' label='플랜명' value={planName} onChange={changePlanName} placeholder='플랜명을 입력하세요'/>
-            <Input type='text' label='해시태그' value={hashtag} onChange={changeHashtag} placeholder='해시태그를 입력하세요'/>
-                <StyledSpan>모임타임</StyledSpan>
-                <InputWrapper>
-                    <Checkbox id='online' onChange={(e)=>checkHandler(e, 'online')} checked={checkedItems.includes('online')} label='온라인'/>
-                    <Checkbox id='offline' onChange={(e)=>checkHandler(e, 'offline')} checked={checkedItems.includes('offline')} label='오프라인'/>
-                </InputWrapper>
-                <StyledSpan>모임 시간대</StyledSpan>
-                <InputWrapper>
-                    <Checkbox id='allDay' onChange={(e)=>checkHandler(e, 'allDay')} checked={checkedItems.includes('allDay')} label='기본시간(all day)'/>
-                </InputWrapper>
+            <StyledSpan>시작일과 종료일</StyledSpan>
+            <InputWrapper>
+            <DatePicker date={startDate} getDate={(date)=>getStartDate(date)}></DatePicker>
+            <DatePicker date={endDate} getDate={(date)=>getEndDate(date)} ></DatePicker>
+            </InputWrapper>
+            <StyledSpan>모임타임</StyledSpan>
+            <InputWrapper>
+                <Checkbox id='online' onChange={(e)=>checkHandler(e, 'online')} checked={checkedItems.includes('online')} label='온라인'/>
+                <Checkbox id='offline' onChange={(e)=>checkHandler(e, 'offline')} checked={checkedItems.includes('offline')} label='오프라인'/>
+            </InputWrapper>
+            <StyledSpan>모임 시간대</StyledSpan>
+            <InputWrapper>
+                <Checkbox id='allDay' onChange={(e)=>checkHandler(e, 'allDay')} checked={checkedItems.includes('allDay')} label='기본시간(all day)'/>
+            </InputWrapper>
             <StyledSpan>공개여부</StyledSpan>
             <InputWrapper>
                 {renderPublicChecks()}
             </InputWrapper>
-            <StyledSpan>시작일과 종료일</StyledSpan>
-                <InputWrapper>
-                <DatePicker date={startDate} getDate={(date)=>getStartDate(date)}></DatePicker>
-                <DatePicker date={endDate} getDate={(date)=>getEndDate(date)} ></DatePicker>
-                </InputWrapper>
+            <StyledSpan>소개글</StyledSpan>
+            <StyledTextArea name='introduction' rows={5} placeholder='플랜 소개를 입력하세요' value={textValue} onChange={(e)=>{handleSetTextValue(e)}} maxLength={500}></StyledTextArea>
+            <Input type='text' label='해시태그' value={hashtag} onChange={changeHashtag} placeholder='해시태그를 입력하세요'/>
+            
         </div>
     )
 }
