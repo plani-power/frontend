@@ -1,10 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input from '../../common/components/Input'
 import Checkbox from 'common/components/Checkbox';
 import Radio from 'common/components/Radio';
 import styled from 'styled-components';
 import DatePicker from 'common/components/DatePicker';
 
+// style
+const InputWrapper = styled.div`
+height: 3rem;
+display: flex;
+flex-flow:row;
+margin-bottom: 1rem;
+gap:50px;
+`;
+
+const StyledSpan = styled.span`
+font-weight: 400;
+font-size: 14px;   
+margin: 20px 0 6px; 
+`
+
+const StyledTextArea = styled.textarea`
+width: 250px;
+height: 200px;
+resize: none;
+display: block;
+`
 
 const CreatePlan = () => {
     const [planName, setPlanName] = useState<string>('');
@@ -61,31 +82,6 @@ const CreatePlan = () => {
     }
 
     const [textValue, setTextValue] = useState('');
-    const handleSetTextValue = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTextValue(e.target.value);
-    }
-    // style
-    const InputWrapper = styled.div`
-        height: 3rem;
-        display: flex;
-        flex-flow:row;
-        margin-bottom: 1rem;
-        gap:50px;
-    `;
-
-    
-    const StyledSpan = styled.span`
-        font-weight: 400;
-        font-size: 14px;   
-        margin: 20px 0 6px; 
-    `
-
-    const StyledTextArea = styled.textarea`
-        width: 250px;
-        height: 200px;
-        resize: none;
-        display: block;
-    `
 
     return (
         <div>
@@ -112,9 +108,8 @@ const CreatePlan = () => {
                 {renderPublicChecks()}
             </InputWrapper>
             <StyledSpan>소개글</StyledSpan>
-            <StyledTextArea name='introduction' rows={5} placeholder='플랜 소개를 입력하세요' value={textValue} onChange={(e)=>{handleSetTextValue(e)}} maxLength={500}></StyledTextArea>
+            <StyledTextArea name='introduction' cols={30} rows={5} placeholder='플랜 소개를 입력하세요' value={textValue} onChange={(e)=>{setTextValue(e.target.value)}} maxLength={500} />
             <Input type='text' label='해시태그' value={hashtag} onChange={changeHashtag} placeholder='해시태그를 입력하세요'/>
-            
         </div>
     )
 }
