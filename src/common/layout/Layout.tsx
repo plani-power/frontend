@@ -9,6 +9,7 @@ const Wrapper = styled.div`
     min-height: 100vh;
     background-color: white;
     margin: 0 auto;
+    padding-top: 10px;
 `
 
 const Body = styled.div`

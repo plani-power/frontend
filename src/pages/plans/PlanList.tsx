@@ -32,12 +32,13 @@ const getPlanStatName = (status: number) => {
 }
 const Ul = styled.ul`
     width: 100%;
-    padding: 20px 0;
+    padding: 0 0 20px 0;
 `
 const Li = styled.li`
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    justify-content: space-between;
     width: 100%;
     height: 70px;
     border: 2px solid #ddd;
@@ -72,10 +73,14 @@ const Li = styled.li`
             display: flex;
             align-items: center;
             padding: 6px;
+            padding-bottom: 0;
             border-radius: 10px;
             font-size: 12px;
             color: #808080;
             margin-right: 4px;
+        }
+        .hashtag:first-child {
+            padding-left: 0;
         }
     }
 `
