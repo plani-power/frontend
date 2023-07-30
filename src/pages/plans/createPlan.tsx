@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../../common/components/Input'
 import Checkbox from 'common/components/Checkbox';
 import Radio from 'common/components/Radio';
@@ -83,6 +83,17 @@ const CreatePlan = () => {
 
     const [textValue, setTextValue] = useState('');
 
+    const [startTime, setStartTime] = useState<Date>(new Date());
+    const [endTime, setEndTime] = useState<Date>(new Date());
+
+    const getStartTime = (time:Date) => {
+        setStartTime(time);
+    }
+
+    const getEndTime = (time:Date) => {
+        setEndTime(time);
+    }
+
     return (
         <div>
             <p>
@@ -91,8 +102,8 @@ const CreatePlan = () => {
             <Input type='text' label='플랜명' value={planName} onChange={changePlanName} placeholder='플랜명을 입력하세요'/>
             <StyledSpan>시작일과 종료일</StyledSpan>
             <InputWrapper>
-            <DatePicker date={startDate} getDate={(date)=>getStartDate(date)}></DatePicker>
-            <DatePicker date={endDate} getDate={(date)=>getEndDate(date)} ></DatePicker>
+                <DatePicker date={startDate} getDate={(date)=>getStartDate(date)} type='date'></DatePicker>
+                <DatePicker date={endDate} getDate={(date)=>getEndDate(date)} type='date'></DatePicker>
             </InputWrapper>
             <StyledSpan>모임타임</StyledSpan>
             <InputWrapper>
@@ -102,6 +113,11 @@ const CreatePlan = () => {
             <StyledSpan>모임 시간대</StyledSpan>
             <InputWrapper>
                 <Checkbox id='allDay' onChange={(e)=>checkHandler(e, 'allDay')} checked={checkedItems.includes('allDay')} label='기본시간(all day)'/>
+            </InputWrapper>
+            <StyledSpan>시작시간과 종료시간</StyledSpan>
+            <InputWrapper>
+                <DatePicker date={startTime} getDate={(date)=>getStartTime(date)} type='time'></DatePicker>
+                <DatePicker date={endTime} getDate={(date)=>getEndTime(date)} type='time'></DatePicker>
             </InputWrapper>
             <StyledSpan>공개여부</StyledSpan>
             <InputWrapper>
