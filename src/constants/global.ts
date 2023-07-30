@@ -12,7 +12,7 @@ export const ROUTES = {
     main: {
         value: 'main',
         url: '/',
-        name: 'Home',
+        name: 'HOME',
     },
     // login: {
     // value: 'Login',
@@ -40,11 +40,6 @@ export const getPageTitle = (path : string, object : object = ROUTES) => {
 
     let pageTitle = DEFAULT_TITLE;
     Object.entries(object).forEach(([key, value])=>{
-        console.log({key, value})
-        console.log(value.url === path)
-        if(value.url === undefined) {
-            console.log({value})
-        }
         if(value.url === path) {
             pageTitle = value.name === 'HOME' ? DEFAULT_TITLE : value.name;
             return value.name ?? DEFAULT_TITLE;
