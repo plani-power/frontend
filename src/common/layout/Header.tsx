@@ -18,7 +18,7 @@ const HeaderBar = styled.header`
     height: 100%;
     padding: 10px 20px;
     padding-right: 48px;
-    border-bottom: 1px solid #e5e5e5;
+/*    border-bottom: 1px solid #e5e5e5; */
     position: relative;
     .page-title {
         margin: 0 auto;
@@ -108,10 +108,12 @@ const Header = () => {
         setShowMenu(!showMenu);
     }
 
+    const pageTitle = getPageTitle(location.pathname);
+
     return (
         <HeaderWrapper>
             <HeaderBar>
-                <p className="page-title">{getPageTitle(location.pathname)}</p>
+                <p className="page-title">{pageTitle}</p>
                 <Button onClick={onClickHamberger}>
                 {[...Array(3)].map((n, index) => <span key={`bar-${index}`} className={showMenu ? 'active' : ''}></span>)}
                 </Button>

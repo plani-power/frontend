@@ -37,14 +37,15 @@ export const ROUTES = {
 }
 
 export const getPageTitle = (path : string, object : object = ROUTES) => {
+    let pageTitle: undefined;
 
-    let pageTitle = DEFAULT_TITLE;
-    Object.entries(object).forEach(([key, value])=>{
+    Object.values(object).forEach((value)=>{
         if(value.url === path) {
             pageTitle = value.name === 'HOME' ? DEFAULT_TITLE : value.name;
-            return value.name ?? DEFAULT_TITLE;
-        } else if(value.url?.includes(path) && Object.keys(value).length > 3) {
-            getPageTitle(path, value);
+            return false;
+        } else if(path.includes(value.url) && Object.keys(value).length > 3) {
+            pageTitle = getPageTitle(path, value);
+            return false;
         }
     })
     return pageTitle;
