@@ -1,11 +1,18 @@
 export const DEFAULT_URL = 'http://localhost:3000';
 
-const _plans = '/plans'
+const _plans = '/plans';
+const DEFAULT_TITLE = '플래니';
+
+type TRoute = {
+    value: string,
+    url: string,
+    name: string
+} & object | null
 export const ROUTES = {
     main: {
         value: 'main',
         url: '/',
-        name: 'Home',
+        name: 'HOME',
     },
     // login: {
     // value: 'Login',
@@ -27,4 +34,19 @@ export const ROUTES = {
         }
     },
 
+}
+
+export const getPageTitle = (path : string, object : object = ROUTES) => {
+    let pageTitle: undefined;
+
+    Object.values(object).forEach((value)=>{
+        if(value.url === path) {
+            pageTitle = value.name === 'HOME' ? DEFAULT_TITLE : value.name;
+            return false;
+        } else if(path.includes(value.url) && Object.keys(value).length > 3) {
+            pageTitle = getPageTitle(path, value);
+            return false;
+        }
+    })
+    return pageTitle;
 }

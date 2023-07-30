@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import ReactDatePicker from 'react-datepicker'
+import ReactDatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import getYear from "date-fns/getYear";

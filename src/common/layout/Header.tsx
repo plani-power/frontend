@@ -1,6 +1,6 @@
-import { ROUTES } from 'constants/global';
+import { ROUTES, getPageTitle } from 'constants/global';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const navMenus = [
@@ -17,10 +17,18 @@ const HeaderBar = styled.header`
     width: 100%;
     height: 100%;
     padding: 10px 20px;
-    border-bottom: 1px solid #e5e5e5;
+    padding-right: 48px;
+/*    border-bottom: 1px solid #e5e5e5; */
+    position: relative;
+    .page-title {
+        margin: 0 auto;
+        text-align: center;
+    }
     button {
         display: block;
-        margin-left: auto;
+        position: absolute;
+        top: 10px;
+        right: 20px;
     }
 `
 const Draw = styled.div`
@@ -94,15 +102,18 @@ span:nth-of-type(1).active {
 
 const Header = () => {
 
+    const location = useLocation();
     const [showMenu, setShowMenu] = useState(false);
-    console.log({showMenu})
     const onClickHamberger = () => {
         setShowMenu(!showMenu);
     }
 
+    const pageTitle = getPageTitle(location.pathname);
+
     return (
         <HeaderWrapper>
             <HeaderBar>
+                <p className="page-title">{pageTitle}</p>
                 <Button onClick={onClickHamberger}>
                 {[...Array(3)].map((n, index) => <span key={`bar-${index}`} className={showMenu ? 'active' : ''}></span>)}
                 </Button>
