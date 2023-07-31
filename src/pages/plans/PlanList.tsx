@@ -18,7 +18,6 @@ const planStatus = {
 
 }
 const getPlanStatName = (status: number) => {
-    console.log(status)
     switch (status) {
         case planStatus.recruiting:
             return '모집중';
@@ -33,12 +32,13 @@ const getPlanStatName = (status: number) => {
 }
 const Ul = styled.ul`
     width: 100%;
-    padding: 20px 0;
+    padding: 0 0 20px 0;
 `
 const Li = styled.li`
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    justify-content: space-between;
     width: 100%;
     height: 70px;
     border: 2px solid #ddd;
@@ -46,7 +46,7 @@ const Li = styled.li`
     margin-bottom: 10px;
     align-items: center;
     cursor: pointer;
-    padding: 15px 10px;
+    padding: 10px;
     &:hover {
         transition: all 0.2s ease;
         -webkit-transform: translateY(-5px);
@@ -73,10 +73,14 @@ const Li = styled.li`
             display: flex;
             align-items: center;
             padding: 6px;
+            padding-bottom: 0;
             border-radius: 10px;
             font-size: 12px;
             color: #808080;
             margin-right: 4px;
+        }
+        .hashtag:first-child {
+            padding-left: 0;
         }
     }
 `
@@ -94,7 +98,7 @@ const MoreButton = styled.button`
 `
 
 const PlanItem = (props: { plan: plan }) => {
-    const { name, created, creator, hashtag, status } = props.plan;
+    const { name, hashtag, status } = props.plan;
     return (
         <Li>
             <div className="plan-info">
@@ -118,22 +122,34 @@ export const PlanList = (props: { plans: plan[] }) => {
     useEffect(() => {
         if (pageNum * pageSize < plans.length) {
             setList(plans?.slice(0, pageNum * pageSize))
-        } else {
-            alert('더 이상 목록이 없습니다')
         }
     }, [pageNum])
+
+    const addList = () => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
+
+        if (scrollHeight - scrollTop === clientHeight) {
+            setPageNum(pageNum + 1);
+        }
+    }
+    useEffect(() => {
+        window.addEventListener('scroll', addList)
+        return () => {
+            window.removeEventListener('scroll', addList)
+        }
+    })
     return (
         <>
-            <h3>플랜 목록</h3>
             <Ul>
                 {list.map((plan) => {
                     return <PlanItem key={plan.id} plan={plan} />
                 })}
             </Ul>
-            {pageNum * pageSize === plans.length - 1 ? '' : <MoreButton onClick={() => {
+            {/* {pageNum * pageSize === plans.length - 1 ? '' : <MoreButton onClick={() => {
                 setPageNum(pageNum + 1);
-                console.log(pageNum)
-            }}>더보기</MoreButton>}
+            }}>더보기</MoreButton>} */}
         </>
     )
 }
