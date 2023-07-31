@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import Input from '../../common/components/Input'
 import Checkbox from 'common/components/Checkbox';
 import Radio from 'common/components/Radio';
 import styled from 'styled-components';
 import DatePicker from 'common/components/DatePicker';
+import SelectBox, { SelectOption } from 'common/components/SelectBox';
 
 // style
 const InputWrapper = styled.div`
@@ -94,6 +95,26 @@ const CreatePlan = () => {
         setEndTime(time);
     }
 
+    const sidoList = ['강원특별자치도', '경기도', '경상북도','경상남도','광주광역시','대구광역시','대전광역시','서울특별시']; 
+    const options: SelectOption[] = [
+        { label: '선택', value: '' },
+        ...sidoList.map((sido) => ({ label: sido, value: sido })),
+    ];
+    const [sido, setSido] = useState('');
+    const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setSido(event.target.value);
+    };
+
+    const keywordList = ['공부', '취준', '운동','보드게임']; 
+    const keywordOptions: SelectOption[] = [
+        { label: '선택', value: '' },
+        ...keywordList.map((keyword) => ({ label: keyword, value: keyword })),
+    ];
+    const [keyword, setKeyword] = useState('');
+    const onChangeType = (event: ChangeEvent<HTMLSelectElement>) => {
+        setKeyword(event.target.value);
+    };
+
     return (
         <div>
             <p>
@@ -126,6 +147,13 @@ const CreatePlan = () => {
             <StyledSpan>소개글</StyledSpan>
             <StyledTextArea name='introduction' cols={30} rows={5} placeholder='플랜 소개를 입력하세요' value={textValue} onChange={(e)=>{setTextValue(e.target.value)}} maxLength={500} />
             <Input type='text' label='해시태그' value={hashtag} onChange={changeHashtag} placeholder='해시태그를 입력하세요'/>
+            <StyledSpan>모임지역</StyledSpan>
+            <InputWrapper>
+                <SelectBox size='50%' options={options} value={sido} onChange={(e)=>onChange(e)}></SelectBox>
+                <SelectBox size='50%' options={options} value={sido} onChange={(e)=>onChange(e)}></SelectBox>
+            </InputWrapper>
+            <StyledSpan>모임타입</StyledSpan>
+            <SelectBox options={keywordOptions} value={keyword} onChange={(e)=>onChangeType(e)}></SelectBox>
         </div>
     )
 }
