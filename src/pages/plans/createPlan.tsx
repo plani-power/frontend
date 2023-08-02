@@ -5,6 +5,7 @@ import Radio from 'common/components/Radio';
 import styled from 'styled-components';
 import DatePicker from 'common/components/DatePicker';
 import SelectBox, { SelectOption } from 'common/components/SelectBox';
+import Button from 'common/components/Button';
 
 // style
 const InputWrapper = styled.div`
@@ -115,6 +116,10 @@ const CreatePlan = () => {
         setKeyword(event.target.value);
     };
 
+    const buttonClick = (event:React.MouseEvent<HTMLButtonElement>) =>{
+        console.log('버튼 클릭')
+    }
+
     return (
         <div>
             <p>
@@ -154,6 +159,8 @@ const CreatePlan = () => {
             </InputWrapper>
             <StyledSpan>모임타입</StyledSpan>
             <SelectBox options={keywordOptions} value={keyword} onChange={(e)=>onChangeType(e)}></SelectBox>
+            <Button color='yellow' size='md' disabled={false} onClick={(e)=>buttonClick(e)}>테스트버튼1</Button>
+            <Button color='grey' size='md' disabled={false} onClick={(e)=>buttonClick(e)}>테스트버튼2</Button>
         </div>
     )
 }
