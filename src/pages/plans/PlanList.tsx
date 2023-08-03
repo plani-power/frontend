@@ -117,12 +117,22 @@ export const PlanList = (props: { plans: plan[] }) => {
     const { plans } = props;
     const pageSize = 10;
     const [pageNum, setPageNum] = useState(1);
-    const [list, setList] = useState<plan[]>(plans?.slice(0, pageNum * pageSize));
-
+    const [list, setList] = useState<plan[]>([]);
+    console.log({ pageNum })
     useEffect(() => {
-        if (pageNum * pageSize < plans.length) {
-            setList(plans?.slice(0, pageNum * pageSize))
+        const lastPageNum = Math.ceil(plans.length / pageSize);
+        let start;
+        let end = pageNum * pageSize;
+        if (pageNum === 1) {
+            start = 0;
+        } else {
+            start = (pageNum - 1) * pageSize
         }
+        if(pageNum === lastPageNum) {
+            end = plans?.length
+        }
+        console.log({start, end})
+        setList(list.concat(plans?.slice(start, end)))
     }, [pageNum])
 
     const addList = () => {
