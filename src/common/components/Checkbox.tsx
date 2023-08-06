@@ -1,11 +1,11 @@
-import React, { ChangeEvent } from 'react';
-import styled from 'styled-components';
+import React, { ChangeEvent } from "react";
+import styled from "styled-components";
 
 interface CheckboxProps {
-    id: string;
-    checked: boolean;
-    onChange: (event : ChangeEvent<HTMLInputElement>) => void;
-    label ?: string;
+  id: string;
+  checked: boolean;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
 }
 
 // style
@@ -29,25 +29,27 @@ const StyledInput = styled.input`
 `;
 
 const InputLabel = styled.label`
-    display: flex;
-    align-items: center;
-    user-selct: none;
+  display: flex;
+  align-items: center;
+  user-selct: none;
 `;
 
 const StyledP = styled.p`
-    margin-left: 0.25rem;
+  margin-left: 0.25rem;
 `;
 
-
-
-const Checkbox = ({id,checked, onChange, label}:CheckboxProps)=>{
-    return (
-            
-            <InputLabel htmlFor={id}>
-                <StyledInput type="checkbox" id={id} onChange={onChange} checked={checked} />
-                <StyledP>{label}</StyledP>
-            </InputLabel>
-    )
-}
+const Checkbox = ({ id, checked, onChange, label }: CheckboxProps) => {
+  return (
+    <InputLabel htmlFor={id}>
+      <StyledInput
+        type="checkbox"
+        id={id}
+        onChange={onChange}
+        checked={checked}
+      />
+      <StyledP>{label}</StyledP>
+    </InputLabel>
+  );
+};
 
 export default Checkbox;

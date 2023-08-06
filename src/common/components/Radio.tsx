@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-type useRadioBtnPropsType = [checkRadioValue: string, renderChecks: () => JSX.Element];
-
+type useRadioBtnPropsType = [
+  checkRadioValue: string,
+  renderChecks: () => JSX.Element
+];
 
 // style
 const StyledInput = styled.input`
@@ -25,73 +27,68 @@ const StyledInput = styled.input`
 `;
 
 const InputLabel = styled.label`
-    display: flex;
-    align-items: center;
-    user-selct: none;
+  display: flex;
+  align-items: center;
+  user-selct: none;
 `;
 
 const StyledLi = styled.li`
-    display: flex;  
-    list-style-type: none;
-`
+  display: flex;
+  list-style-type: none;
+`;
 const InputWrapper = styled.div`
-    height: 3rem;
-    display: flex;
-    flex-flow:row;
-    margin-bottom: 1rem;
-    gap:50px;
-`
+  height: 3rem;
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 1rem;
+  gap: 50px;
+`;
 
 const StyledSpan = styled.span`
-
-    vertical-align: middle;
-`
+  vertical-align: middle;
+`;
 // const Radio = ({radioButtonList,labelName,initialCheck}:useRadioProps):useRadioBtnPropsType => {
 const Radio = (
-    radioButtonList: string[], // 라디오버튼 목록 
-    labelName: string, // 라디오버튼그룹 name 
-    initialCheck: string // 초기값 
-):useRadioBtnPropsType => {
-    const getDefaultRadioButtons = () =>
+  radioButtonList: string[], // 라디오버튼 목록
+  labelName: string, // 라디오버튼그룹 name
+  initialCheck: string // 초기값
+): useRadioBtnPropsType => {
+  const getDefaultRadioButtons = () =>
     radioButtonList.map((radioBtn: string) => ({
       name: radioBtn,
       checked: false,
     }));
-    
-    const radioButtons = getDefaultRadioButtons();
 
-  
-    const [checkRadioValue, setCheckRadioValue] = useState(initialCheck);
+  const radioButtons = getDefaultRadioButtons();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
-        const {value} = e.target;
-        const selected = radioButtons.find(check=> check.name === value);
-        if(selected) setCheckRadioValue(selected.name);
-    };
+  const [checkRadioValue, setCheckRadioValue] = useState(initialCheck);
 
-    const renderChecks = () => (
-        <InputWrapper>
-            {radioButtons.map((radioBtn:any, index:any) => (
-                <InputLabel key={index} htmlFor={radioBtn.name}>
-                <StyledLi key={index}>
-                    <StyledInput
-                        type="radio"
-                        name={labelName}
-                        id={radioBtn.name}
-                        value={radioBtn.name}
-                        checked={radioBtn.name === checkRadioValue}
-                        onChange={handleChange}
-                    />
-                    <StyledSpan>
-                    {radioBtn.name}
-                    </StyledSpan>
-                </StyledLi>
-                </InputLabel>
-            ))}
-          </InputWrapper>
-    )
-    return [checkRadioValue, renderChecks];
-}
-    
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const selected = radioButtons.find((check) => check.name === value);
+    if (selected) setCheckRadioValue(selected.name);
+  };
+
+  const renderChecks = () => (
+    <InputWrapper>
+      {radioButtons.map((radioBtn: any, index: any) => (
+        <InputLabel key={index} htmlFor={radioBtn.name}>
+          <StyledLi key={index}>
+            <StyledInput
+              type="radio"
+              name={labelName}
+              id={radioBtn.name}
+              value={radioBtn.name}
+              checked={radioBtn.name === checkRadioValue}
+              onChange={handleChange}
+            />
+            <StyledSpan>{radioBtn.name}</StyledSpan>
+          </StyledLi>
+        </InputLabel>
+      ))}
+    </InputWrapper>
+  );
+  return [checkRadioValue, renderChecks];
+};
 
 export default Radio;
