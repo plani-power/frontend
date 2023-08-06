@@ -29,6 +29,11 @@ resize: none;
 display: block;
 `
 
+const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content:space-between;
+`
+
 const CreatePlan = () => {
     const [planName, setPlanName] = useState<string>('');
     const [hashtag, setHashtag] = useState<string>('');
@@ -159,8 +164,10 @@ const CreatePlan = () => {
             </InputWrapper>
             <StyledSpan>모임타입</StyledSpan>
             <SelectBox options={keywordOptions} value={keyword} onChange={(e)=>onChangeType(e)}></SelectBox>
-            <Button color='yellow' size='md' disabled={false} onClick={(e)=>buttonClick(e)}>테스트버튼1</Button>
-            <Button color='grey' size='md' disabled={false} onClick={(e)=>buttonClick(e)}>테스트버튼2</Button>
+            <ButtonWrapper>
+                <Button color='yellow' size='md' disabled={false} onClick={(e)=>buttonClick(e)}>테스트버튼1</Button>
+                <Button color='grey' size='md' disabled={false} onClick={(e)=>buttonClick(e)}>테스트버튼2</Button>
+            </ButtonWrapper>
         </div>
     )
 }
