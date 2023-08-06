@@ -11,11 +11,13 @@ const SIZES = {
       --button-font-size: 1rem;
       --button-padding: 12px 16px;
       --button-radius: 8px;
+      width:49%;
     `,
     lg: css`
       --button-font-size: 1.25rem;
       --button-padding: 16px 20px;
       --button-radius: 12px;
+      width:100%;
     `
 };
 
@@ -48,7 +50,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   ${(props) => SIZES[props.sizeStyle]}
   ${(props) => COLOR[props.colorStyle]}
 
-  margin: 0;
+  margin: 8px 0px 8px 0px;
   border: none;
   cursor: pointer;
   font-family: "Noto Sans KR", sans-serif;
