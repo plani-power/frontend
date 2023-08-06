@@ -8,8 +8,9 @@ import styled from "styled-components";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 interface DatePickerProps {
+  name: string;
   date: Date;
-  getDate: (date: Date) => void;
+  getDate: (name: string, date: Date) => void;
   type: string;
 }
 
@@ -35,7 +36,7 @@ const ButtonWrapper = styled.div`
   margin: 5px 7px 0px 0px;
 `;
 
-const DatePicker = ({ date, getDate, type }: DatePickerProps) => {
+const DatePicker = ({ date, getDate, type, name }: DatePickerProps) => {
   const [currentDate, setCurrentDate] = useState<Date>(date);
   const calendar = useRef<ReactDatePicker>(null);
 
@@ -56,7 +57,7 @@ const DatePicker = ({ date, getDate, type }: DatePickerProps) => {
   const onChange = (date: Date | null) => {
     if (date !== null) {
       setCurrentDate(date);
-      getDate(date);
+      getDate(name, date);
     }
   };
 

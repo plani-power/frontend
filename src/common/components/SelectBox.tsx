@@ -6,6 +6,7 @@ export interface SelectOption {
   value: string;
 }
 interface Props {
+  name: string;
   value?: string;
   options: SelectOption[];
   size?: number;
@@ -41,9 +42,9 @@ const Select = styled.select<StyledSelectProps>`
   }
 `;
 
-const SelectBox = ({ value, options, onChange, size = 100 }: Props) => {
+const SelectBox = ({ value, options, onChange, size = 100, name }: Props) => {
   return (
-    <Select onChange={onChange} sizeStyle={size}>
+    <Select onChange={onChange} sizeStyle={size} name={name}>
       {options.map(({ value, label }) => (
         <option key={value} value={value}>
           {label}
