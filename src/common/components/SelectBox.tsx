@@ -8,14 +8,15 @@ export interface SelectOption {
 interface Props {
   value?: string;
   options: SelectOption[];
-  size?: string;
+  size?: number;
   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const SelectWrapper = styled.div`
-  position: relative;
-`;
-const Select = styled.select`
+interface StyledSelectProps {
+  readonly sizeStyle: number;
+}
+
+const Select = styled.select<StyledSelectProps>`
   -moz-appearance: none;
   -webkit-appearance: none;
   -o-appearance: none;
@@ -26,12 +27,12 @@ const Select = styled.select`
   font-size: inherit;
   color: inherit;
   box-sizing: content-box;
-  margin: 0;
+  margin: 8px 0px 8px 0px;
   padding: 0.75rem 2.5rem 0.65rem 0.75rem;
   box-shadow: none;
   box-sizing: border-box;
   display: block;
-  width: ${(props) => props.size || "100%"};
+  width: ${(props) => `${props.sizeStyle}%`};
   border: 1px solid #ddd;
   line-height: 1.06;
   cursor: pointer;
@@ -40,17 +41,15 @@ const Select = styled.select`
   }
 `;
 
-const SelectBox = ({ value, options, onChange, size }: Props) => {
+const SelectBox = ({ value, options, onChange, size = 100 }: Props) => {
   return (
-    <SelectWrapper>
-      <Select onChange={onChange}>
-        {options.map(({ value, label }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </Select>
-    </SelectWrapper>
+    <Select onChange={onChange} sizeStyle={size}>
+      {options.map(({ value, label }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </Select>
   );
 };
 

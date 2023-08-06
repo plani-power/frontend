@@ -215,20 +215,20 @@ const CreatePlan = () => {
         placeholder="해시태그를 입력하세요"
       />
       <StyledSpan>모임지역</StyledSpan>
-      <InputWrapper>
+      <ButtonWrapper>
         <SelectBox
-          size="50%"
+          size={49}
           options={options}
           value={sido}
           onChange={(e) => onChange(e)}
         ></SelectBox>
         <SelectBox
-          size="50%"
+          size={49}
           options={options}
           value={sido}
           onChange={(e) => onChange(e)}
         ></SelectBox>
-      </InputWrapper>
+      </ButtonWrapper>
       <StyledSpan>모임타입</StyledSpan>
       <SelectBox
         options={keywordOptions}
@@ -242,7 +242,7 @@ const CreatePlan = () => {
           disabled={false}
           onClick={(e) => buttonClick(e)}
         >
-          생성
+          취소
         </Button>
         <Button
           color="yellow"
@@ -250,7 +250,7 @@ const CreatePlan = () => {
           disabled={false}
           onClick={(e) => buttonClick(e)}
         >
-          취소
+          생성
         </Button>
       </ButtonWrapper>
     </div>
