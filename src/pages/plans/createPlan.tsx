@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../common/components/Input";
 import Checkbox from "common/components/Checkbox";
 import Radio from "common/components/Radio";
@@ -16,12 +16,19 @@ export interface PlanInputs {
   is_public: boolean;
   status: string; // 대기중/모집중/진행중
   default_time: string;
-  start_date: string; // DATE_TIME
-  end_date: string; // DATE_TIME
+  start_date: Date; // DATE_TIME
+  end_date: Date; // DATE_TIME
   max_member_num?: number; // -1:제한없음
   gender: string; // null:제한x f:여성만 m:남성만
   birth_year: string;
   plan_pwd: string;
+  // 임시
+  sido: string;
+  gugun: string;
+  keyword: string;
+  start_time: Date; // 시작시간
+  end_time: Date; // 종료시간
+  introduction: string; // 소개글
 }
 // style
 const InputWrapper = styled.div`
@@ -39,7 +46,7 @@ const StyledSpan = styled.span`
 `;
 
 const StyledTextArea = styled.textarea`
-  width: 250px;
+  width: 100%;
   height: 200px;
   resize: none;
   display: block;
@@ -58,19 +65,22 @@ const CreatePlan = () => {
     hashtag: "",
     is_public: true,
     status: "", // 대기중/모집중/진행중
-    start_date: "", // DATE_TIME
-    end_date: "", // DATE_TIME
+    start_date: new Date(), // DATE_TIME
+    end_date: new Date(), // DATE_TIME
     birth_year: "",
     default_time: "",
     gender: "",
     plan_pwd: "",
     max_member_num: -1,
+    sido: "",
+    gugun: "",
+    keyword: "",
+    start_time: new Date(),
+    end_time: new Date(),
+    introduction: "",
   });
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("handleChangeInput");
-    console.log(e.target.name);
-    console.log(e.target.value);
     setPlanInputs((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
@@ -108,30 +118,17 @@ const CreatePlan = () => {
     setIsPublic(publicValue === "공개" ? "공개" : "비공개");
   }, [isPublic, publicValue]);
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
-
-  const getStartDate = (start: Date) => {
-    setStartDate(start);
+  const handleChangeDate = (name: string, date: Date) => {
+    setPlanInputs((prevState) => {
+      return { ...prevState, [name]: date };
+    });
   };
 
-  const getEndDate = (end: Date) => {
-    setEndDate(end);
+  const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPlanInputs((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
   };
-
-  const [textValue, setTextValue] = useState("");
-
-  const [startTime, setStartTime] = useState<Date>(new Date());
-  const [endTime, setEndTime] = useState<Date>(new Date());
-
-  const getStartTime = (time: Date) => {
-    setStartTime(time);
-  };
-
-  const getEndTime = (time: Date) => {
-    setEndTime(time);
-  };
-
   const sidoList = [
     "강원특별자치도",
     "경기도",
@@ -146,28 +143,26 @@ const CreatePlan = () => {
     { label: "선택", value: "" },
     ...sidoList.map((sido) => ({ label: sido, value: sido })),
   ];
-  const [sido, setSido] = useState("");
-  const onChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSido(event.target.value);
-  };
 
   const keywordList = ["공부", "취준", "운동", "보드게임"];
   const keywordOptions: SelectOption[] = [
     { label: "선택", value: "" },
     ...keywordList.map((keyword) => ({ label: keyword, value: keyword })),
   ];
-  const [keyword, setKeyword] = useState("");
-  const onChangeType = (event: ChangeEvent<HTMLSelectElement>) => {
-    setKeyword(event.target.value);
+
+  const handleChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPlanInputs((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
   };
 
   const buttonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log("버튼 클릭");
+    console.log(planInput);
   };
 
   return (
     <div>
-      <p>플랜 생성하기 페이지</p>
       <Input
         name="plan_name"
         type="text"
@@ -179,13 +174,15 @@ const CreatePlan = () => {
       <StyledSpan>시작일과 종료일</StyledSpan>
       <InputWrapper>
         <DatePicker
-          date={startDate}
-          getDate={(date) => getStartDate(date)}
+          name="start_date"
+          date={planInput.start_date}
+          getDate={(name, date) => handleChangeDate(name, date)}
           type="date"
         ></DatePicker>
         <DatePicker
-          date={endDate}
-          getDate={(date) => getEndDate(date)}
+          name="end_date"
+          date={planInput.end_date}
+          getDate={(name, date) => handleChangeDate(name, date)}
           type="date"
         ></DatePicker>
       </InputWrapper>
@@ -216,13 +213,15 @@ const CreatePlan = () => {
       <StyledSpan>시작시간과 종료시간</StyledSpan>
       <InputWrapper>
         <DatePicker
-          date={startTime}
-          getDate={(date) => getStartTime(date)}
+          name="start_time"
+          date={planInput.start_time}
+          getDate={(name, date) => handleChangeDate(name, date)}
           type="time"
         ></DatePicker>
         <DatePicker
-          date={endTime}
-          getDate={(date) => getEndTime(date)}
+          name="end_time"
+          date={planInput.end_time}
+          getDate={(name, date) => handleChangeDate(name, date)}
           type="time"
         ></DatePicker>
       </InputWrapper>
@@ -242,10 +241,8 @@ const CreatePlan = () => {
         cols={30}
         rows={5}
         placeholder="플랜 소개를 입력하세요"
-        value={textValue}
-        onChange={(e) => {
-          setTextValue(e.target.value);
-        }}
+        value={planInput.introduction}
+        onChange={handleChangeText}
         maxLength={500}
       />
       <Input
@@ -259,23 +256,26 @@ const CreatePlan = () => {
       <StyledSpan>모임지역</StyledSpan>
       <ButtonWrapper>
         <SelectBox
+          name="sido"
           size={49}
           options={options}
-          value={sido}
-          onChange={(e) => onChange(e)}
+          value={planInput.sido}
+          onChange={(e) => handleChangeSelect(e)}
         ></SelectBox>
         <SelectBox
+          name="gugun"
           size={49}
           options={options}
-          value={sido}
-          onChange={(e) => onChange(e)}
+          value={planInput.gugun}
+          onChange={(e) => handleChangeSelect(e)}
         ></SelectBox>
       </ButtonWrapper>
-      <StyledSpan>모임타입</StyledSpan>
+      <StyledSpan>모임키워드</StyledSpan>
       <SelectBox
+        name="keyword"
         options={keywordOptions}
-        value={keyword}
-        onChange={(e) => onChangeType(e)}
+        value={planInput.keyword}
+        onChange={(e) => handleChangeSelect(e)}
       ></SelectBox>
       <ButtonWrapper>
         <Button
