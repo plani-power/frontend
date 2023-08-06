@@ -7,6 +7,22 @@ import DatePicker from "common/components/DatePicker";
 import SelectBox, { SelectOption } from "common/components/SelectBox";
 import Button from "common/components/Button";
 
+export interface PlanInputs {
+  //   plan_id: string;
+  plan_name: string;
+  create_name: string;
+  onoff_type: string;
+  hashtag: string;
+  is_public: boolean;
+  status: string; // 대기중/모집중/진행중
+  default_time: string;
+  start_date: string; // DATE_TIME
+  end_date: string; // DATE_TIME
+  max_member_num?: number; // -1:제한없음
+  gender: string; // null:제한x f:여성만 m:남성만
+  birth_year: string;
+  plan_pwd: string;
+}
 // style
 const InputWrapper = styled.div`
   height: 3rem;
@@ -35,13 +51,29 @@ const ButtonWrapper = styled.div`
 `;
 
 const CreatePlan = () => {
-  const [planName, setPlanName] = useState<string>("");
-  const [hashtag, setHashtag] = useState<string>("");
-  const changePlanName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlanName(e.target.value);
-  };
-  const changeHashtag = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHashtag(e.target.value);
+  const [planInput, setPlanInputs] = useState<PlanInputs>({
+    plan_name: "",
+    create_name: "",
+    onoff_type: "",
+    hashtag: "",
+    is_public: true,
+    status: "", // 대기중/모집중/진행중
+    start_date: "", // DATE_TIME
+    end_date: "", // DATE_TIME
+    birth_year: "",
+    default_time: "",
+    gender: "",
+    plan_pwd: "",
+    max_member_num: -1,
+  });
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handleChangeInput");
+    console.log(e.target.name);
+    console.log(e.target.value);
+    setPlanInputs((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
   };
 
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
@@ -137,10 +169,11 @@ const CreatePlan = () => {
     <div>
       <p>플랜 생성하기 페이지</p>
       <Input
+        name="plan_name"
         type="text"
         label="플랜명"
-        value={planName}
-        onChange={changePlanName}
+        value={planInput.plan_name}
+        onChange={handleChangeInput}
         placeholder="플랜명을 입력하세요"
       />
       <StyledSpan>시작일과 종료일</StyledSpan>
@@ -195,6 +228,14 @@ const CreatePlan = () => {
       </InputWrapper>
       <StyledSpan>공개여부</StyledSpan>
       <InputWrapper>{renderPublicChecks()}</InputWrapper>
+      <Input
+        name="plan_pwd"
+        type="text"
+        label="비밀번호"
+        value={planInput.plan_pwd}
+        onChange={handleChangeInput}
+        placeholder="비밀번호를 입력하세요"
+      />
       <StyledSpan>소개글</StyledSpan>
       <StyledTextArea
         name="introduction"
@@ -208,10 +249,11 @@ const CreatePlan = () => {
         maxLength={500}
       />
       <Input
+        name="hashtag"
         type="text"
         label="해시태그"
-        value={hashtag}
-        onChange={changeHashtag}
+        value={planInput.hashtag}
+        onChange={handleChangeInput}
         placeholder="해시태그를 입력하세요"
       />
       <StyledSpan>모임지역</StyledSpan>

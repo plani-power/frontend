@@ -6,6 +6,7 @@ export type InputChangeEvent = ChangeEvent<HTMLInputElement>;
 export type InputPplaceholder = string;
 
 export type InputProps = {
+  name: string;
   value: string | number | ReadonlyArray<string>;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -43,12 +44,20 @@ const InputContainer = styled.div`
   height: 50px;
 `;
 
-const Input = ({ label, value, onChange, type, placeholder }: InputProps) => {
+const Input = ({
+  label,
+  value,
+  onChange,
+  type,
+  placeholder,
+  name,
+}: InputProps) => {
   return (
     <InputWrapper>
       <InputLabel>{label}</InputLabel>
       <InputContainer>
         <InputStyled
+          name={name}
           type={type ? type : "text"}
           value={value}
           onChange={onChange}
