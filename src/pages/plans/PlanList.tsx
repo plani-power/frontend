@@ -85,18 +85,6 @@ const Li = styled.li`
     }
 `
 
-const MoreButton = styled.button`
-    dispaly: flex;
-    width: 100%;
-    height: 60px;
-    color: #FFE135;
-    font-weight: bold;
-    background-color:white;
-    border: 3px solid #FFE135;
-    border-radius: 10px;
-    cursor: pointer;
-`
-
 const PlanItem = (props: { plan: plan }) => {
     const { name, hashtag, status } = props.plan;
     return (
@@ -112,13 +100,15 @@ const PlanItem = (props: { plan: plan }) => {
         </Li>
     )
 }
-export const PlanList = (props: { plans: plan[] }) => {
 
-    const { plans } = props;
+
+export const PlanList = (props: { plans: plan[], sortBy: string, filter: string }) => {
+
+    const { plans, sortBy, filter } = props;
     const pageSize = 10;
     const [pageNum, setPageNum] = useState(1);
     const [list, setList] = useState<plan[]>([]);
-    console.log({ pageNum })
+
     useEffect(() => {
         const lastPageNum = Math.ceil(plans.length / pageSize);
         let start;
@@ -131,7 +121,6 @@ export const PlanList = (props: { plans: plan[] }) => {
         if(pageNum === lastPageNum) {
             end = plans?.length
         }
-        console.log({start, end})
         setList(list.concat(plans?.slice(start, end)))
     }, [pageNum])
 
@@ -157,9 +146,6 @@ export const PlanList = (props: { plans: plan[] }) => {
                     return <PlanItem key={plan.id} plan={plan} />
                 })}
             </Ul>
-            {/* {pageNum * pageSize === plans.length - 1 ? '' : <MoreButton onClick={() => {
-                setPageNum(pageNum + 1);
-            }}>더보기</MoreButton>} */}
         </>
     )
 }
