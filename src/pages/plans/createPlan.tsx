@@ -14,11 +14,10 @@ export interface PlanInputs {
   onoff_type: string;
   hashtag: string;
   is_public: boolean;
-  status: string; // 대기중/모집중/진행중
   default_time: string;
   start_date: Date; // DATE_TIME
   end_date: Date; // DATE_TIME
-  max_member_num?: number; // -1:제한없음
+  max_member_num: number; // -1:제한없음
   gender: string; // null:제한x f:여성만 m:남성만
   birth_year: string;
   plan_pwd: string;
@@ -61,17 +60,16 @@ const CreatePlan = () => {
   const [planInput, setPlanInputs] = useState<PlanInputs>({
     plan_name: "",
     create_name: "",
-    onoff_type: "",
+    onoff_type: "", // 'online' 'offline' 'onoff'
     hashtag: "",
     is_public: true,
-    status: "", // 대기중/모집중/진행중
     start_date: new Date(), // DATE_TIME
     end_date: new Date(), // DATE_TIME
     birth_year: "",
     default_time: "",
     gender: "",
     plan_pwd: "",
-    max_member_num: -1,
+    max_member_num: 0,
     sido: "",
     gugun: "",
     keyword: "",
@@ -101,9 +99,9 @@ const CreatePlan = () => {
     return;
   };
 
-  const checkHandler = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
+  const checkHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(!isChecked);
-    checkedItemHandler(id, e.target.checked);
+    checkedItemHandler(e.target.id, e.target.checked);
   };
 
   const radioLabel = ["공개", "비공개"];
@@ -190,13 +188,13 @@ const CreatePlan = () => {
       <InputWrapper>
         <Checkbox
           id="online"
-          onChange={(e) => checkHandler(e, "online")}
+          onChange={(e) => checkHandler(e)}
           checked={checkedItems.includes("online")}
           label="온라인"
         />
         <Checkbox
           id="offline"
-          onChange={(e) => checkHandler(e, "offline")}
+          onChange={(e) => checkHandler(e)}
           checked={checkedItems.includes("offline")}
           label="오프라인"
         />
@@ -205,7 +203,7 @@ const CreatePlan = () => {
       <InputWrapper>
         <Checkbox
           id="allDay"
-          onChange={(e) => checkHandler(e, "allDay")}
+          onChange={(e) => checkHandler(e)}
           checked={checkedItems.includes("allDay")}
           label="기본시간(all day)"
         />
