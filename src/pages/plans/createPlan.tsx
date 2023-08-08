@@ -233,6 +233,14 @@ const CreatePlan = () => {
         onChange={handleChangeInput}
         placeholder="비밀번호를 입력하세요"
       />
+      <Input
+        name="max_member_num"
+        type="number"
+        label="최대인원수"
+        value={planInput.max_member_num}
+        onChange={handleChangeInput}
+        placeholder="최대 인원 수를 입력하세요"
+      />
       <StyledSpan>소개글</StyledSpan>
       <StyledTextArea
         name="introduction"
