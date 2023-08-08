@@ -11,7 +11,7 @@ export type InputProps = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   label: string;
-  type: "text" | "email" | "password";
+  type: "text" | "email" | "password" | "number";
 };
 
 // style
@@ -36,6 +36,20 @@ const InputStyled = styled.input`
   line-height: 30px;
   border-radius: 3px;
   padding-left: 10px;
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  /* Firefox  */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
 
 const InputContainer = styled.div`
