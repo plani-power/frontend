@@ -85,18 +85,6 @@ const Li = styled.li`
     }
 `
 
-const MoreButton = styled.button`
-    dispaly: flex;
-    width: 100%;
-    height: 60px;
-    color: #FFE135;
-    font-weight: bold;
-    background-color:white;
-    border: 3px solid #FFE135;
-    border-radius: 10px;
-    cursor: pointer;
-`
-
 const PlanItem = (props: { plan: plan }) => {
     const { name, hashtag, status } = props.plan;
     return (
@@ -112,17 +100,28 @@ const PlanItem = (props: { plan: plan }) => {
         </Li>
     )
 }
-export const PlanList = (props: { plans: plan[] }) => {
 
-    const { plans } = props;
+
+export const PlanList = (props: { plans: plan[], sortBy: string, filter: string }) => {
+
+    const { plans, sortBy, filter } = props;
     const pageSize = 10;
     const [pageNum, setPageNum] = useState(1);
-    const [list, setList] = useState<plan[]>(plans?.slice(0, pageNum * pageSize));
+    const [list, setList] = useState<plan[]>([]);
 
     useEffect(() => {
-        if (pageNum * pageSize < plans.length) {
-            setList(plans?.slice(0, pageNum * pageSize))
+        const lastPageNum = Math.ceil(plans.length / pageSize);
+        let start;
+        let end = pageNum * pageSize;
+        if (pageNum === 1) {
+            start = 0;
+        } else {
+            start = (pageNum - 1) * pageSize
         }
+        if(pageNum === lastPageNum) {
+            end = plans?.length
+        }
+        setList(list.concat(plans?.slice(start, end)))
     }, [pageNum])
 
     const addList = () => {
@@ -147,9 +146,6 @@ export const PlanList = (props: { plans: plan[] }) => {
                     return <PlanItem key={plan.id} plan={plan} />
                 })}
             </Ul>
-            {/* {pageNum * pageSize === plans.length - 1 ? '' : <MoreButton onClick={() => {
-                setPageNum(pageNum + 1);
-            }}>더보기</MoreButton>} */}
         </>
     )
 }
