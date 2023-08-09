@@ -10,7 +10,7 @@ export type InputProps = {
   value: string | number | ReadonlyArray<string>;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  label: string;
+  label?: string;
   type: "text" | "email" | "password" | "number";
 };
 
@@ -68,7 +68,7 @@ const Input = ({
 }: InputProps) => {
   return (
     <InputWrapper>
-      <InputLabel>{label}</InputLabel>
+      {label && <InputLabel>{label}</InputLabel>}
       <InputContainer>
         <InputStyled
           name={name}
