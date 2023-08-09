@@ -6,6 +6,7 @@ import styled from "styled-components";
 import DatePicker from "common/components/DatePicker";
 import SelectBox, { SelectOption } from "common/components/SelectBox";
 import Button from "common/components/Button";
+import Bottomsheet from "common/components/BottomSheet";
 
 export interface PlanInputs {
   //   plan_id: string;
@@ -54,6 +55,15 @@ const StyledTextArea = styled.textarea`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+//
+const StyledConditionEntry = styled.div`
+  width: 420px;
+  padding: 2.2rem 2rem 1.8rem 2rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
 `;
 
 const CreatePlan = () => {
@@ -157,10 +167,34 @@ const CreatePlan = () => {
   const buttonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log("버튼 클릭");
     console.log(planInput);
+    setIsModalOpen(true);
   };
 
+  // modal bottom sheet 관련
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isModalOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [isModalOpen]);
+
+  const [gender, setGender] = useState("여성");
+  const [genderValue, renderGenderChecks] = Radio(
+    ["여성", "남성"],
+    "gender",
+    gender
+  );
+
+  useEffect(() => {
+    setGender(genderValue === "여성" ? "여성" : "남성");
+  }, [gender, genderValue]);
+
+  const setConditionEntry = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("입장 조건 설정 클릭");
+    setIsModalOpen(false);
+  };
   return (
-    <div>
+    <>
       <Input
         name="plan_name"
         type="text"
@@ -301,7 +335,36 @@ const CreatePlan = () => {
           생성
         </Button>
       </ButtonWrapper>
-    </div>
+      {isModalOpen && (
+        <Bottomsheet
+          title="입장 조건 설정"
+          closeModal={() => setIsModalOpen(false)}
+        >
+          <StyledConditionEntry>
+            <div>성별</div>
+            {renderGenderChecks()}
+            <div>출생연도</div>
+            <Input
+              name="birth_year"
+              type="number"
+              value={planInput.birth_year}
+              onChange={handleChangeInput}
+              placeholder="출생연도를 입력하세요"
+            />
+            <ButtonWrapper>
+              <Button
+                color="yellow"
+                size="lg"
+                disabled={false}
+                onClick={(e) => setConditionEntry(e)}
+              >
+                확인
+              </Button>
+            </ButtonWrapper>
+          </StyledConditionEntry>
+        </Bottomsheet>
+      )}
+    </>
   );
 };
 
