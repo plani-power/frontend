@@ -164,10 +164,14 @@ const CreatePlan = () => {
     });
   };
 
-  const buttonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("버튼 클릭");
+  const clickCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("취소 버튼 클릭");
     console.log(planInput);
-    setIsModalOpen(true);
+  };
+
+  const clickConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("생성 버튼 클릭");
+    console.log(planInput);
   };
 
   // modal bottom sheet 관련
@@ -189,9 +193,18 @@ const CreatePlan = () => {
     setGender(genderValue === "여성" ? "여성" : "남성");
   }, [gender, genderValue]);
 
-  const setConditionEntry = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("입장 조건 설정 클릭");
+  const setConditionEntry = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsModalOpen(false);
+    // 후처리 필요
+  };
+
+  const [checkConditionEntry, setCheckConditionEntry] = useState(false);
+
+  const changeCheckConditionEntry = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!checkConditionEntry) setIsModalOpen(true);
+    setCheckConditionEntry(!checkConditionEntry);
   };
   return (
     <>
@@ -317,12 +330,20 @@ const CreatePlan = () => {
         value={planInput.keyword}
         onChange={(e) => handleChangeSelect(e)}
       ></SelectBox>
+      <InputWrapper>
+        <Checkbox
+          id="conditionEntry"
+          onChange={(e) => changeCheckConditionEntry(e)}
+          checked={checkConditionEntry}
+          label="플랜 참여 조건 설정"
+        />
+      </InputWrapper>
       <ButtonWrapper>
         <Button
           color="grey"
           size="md"
           disabled={false}
-          onClick={(e) => buttonClick(e)}
+          onClick={(e) => clickCancel(e)}
         >
           취소
         </Button>
@@ -330,7 +351,7 @@ const CreatePlan = () => {
           color="yellow"
           size="md"
           disabled={false}
-          onClick={(e) => buttonClick(e)}
+          onClick={(e) => clickConfirm(e)}
         >
           생성
         </Button>
