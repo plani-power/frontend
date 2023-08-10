@@ -30,7 +30,7 @@ const InputLabel = styled.label`
   display: flex;
   align-items: center;
   user-selct: none;
-  margin-right: 4rem;
+  margin-right: 5.5rem;
 `;
 
 const StyledLi = styled.li`
