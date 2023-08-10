@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +13,23 @@ interface DatePickerProps {
   getDate: (name: string, date: Date) => void;
   type: string;
 }
+
+const StyledInput = styled.input`
+  border-radius: 4px;
+  vertical-align: middle;
+  font-size: inherit;
+  color: inherit;
+  box-sizing: content-box;
+  margin: 8px 0px 8px 0px;
+  padding: 0.75rem 2.5rem 0.65rem 0.75rem;
+  box-shadow: none;
+  box-sizing: border-box;
+  display: block;
+  border: 1px solid #ddd;
+  line-height: 1.06;
+  cursor: pointer;
+  width: 100%;
+`;
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -36,9 +53,14 @@ const ButtonWrapper = styled.div`
   margin: 5px 7px 0px 0px;
 `;
 
+const CustomInput = forwardRef((props: any, ref) => {
+  return <StyledInput {...props} ref={ref} />;
+});
+
 const DatePicker = ({ date, getDate, type, name }: DatePickerProps) => {
   const [currentDate, setCurrentDate] = useState<Date>(date);
   const calendar = useRef<ReactDatePicker>(null);
+  const inputRef = useRef(null);
 
   // 취소버튼
   const cancelDatePicker = () => {
@@ -64,6 +86,7 @@ const DatePicker = ({ date, getDate, type, name }: DatePickerProps) => {
   if (type === "date") {
     return (
       <ReactDatePicker
+        customInput={<CustomInput inputRef={inputRef} />}
         withPortal
         locale={ko}
         dateFormat="yyyy.MM.dd(eee)"
@@ -100,6 +123,7 @@ const DatePicker = ({ date, getDate, type, name }: DatePickerProps) => {
   } else {
     return (
       <ReactDatePicker
+        customInput={<CustomInput inputRef={inputRef} />}
         selected={currentDate}
         onChange={(date) => onChange(date)}
         showTimeSelect

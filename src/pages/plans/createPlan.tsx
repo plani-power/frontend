@@ -36,7 +36,7 @@ const InputWrapper = styled.div`
   display: flex;
   flex-flow: row;
   margin-bottom: 1rem;
-  gap: 50px;
+  justify-content: space-between;
 `;
 
 const StyledSpan = styled.span`
@@ -217,7 +217,7 @@ const CreatePlan = () => {
         placeholder="플랜명을 입력하세요"
       />
       <StyledSpan>시작일과 종료일</StyledSpan>
-      <InputWrapper>
+      <ButtonWrapper>
         <DatePicker
           name="start_date"
           date={planInput.start_date}
@@ -230,7 +230,7 @@ const CreatePlan = () => {
           getDate={(name, date) => handleChangeDate(name, date)}
           type="date"
         ></DatePicker>
-      </InputWrapper>
+      </ButtonWrapper>
       <StyledSpan>모임타임</StyledSpan>
       <InputWrapper>
         <Checkbox
@@ -256,7 +256,7 @@ const CreatePlan = () => {
         />
       </InputWrapper>
       <StyledSpan>시작시간과 종료시간</StyledSpan>
-      <InputWrapper>
+      <ButtonWrapper>
         <DatePicker
           name="start_time"
           date={planInput.start_time}
@@ -269,9 +269,9 @@ const CreatePlan = () => {
           getDate={(name, date) => handleChangeDate(name, date)}
           type="time"
         ></DatePicker>
-      </InputWrapper>
+      </ButtonWrapper>
       <StyledSpan>공개여부</StyledSpan>
-      <InputWrapper>{renderPublicChecks()}</InputWrapper>
+      {renderPublicChecks()}
       <Input
         name="plan_pwd"
         type="text"

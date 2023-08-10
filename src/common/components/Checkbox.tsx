@@ -32,7 +32,7 @@ const InputLabel = styled.label`
   display: flex;
   align-items: center;
   user-selct: none;
-  margin-right: 3.1rem;
+  margin-right: 4.5rem;
 `;
 
 const StyledSpan = styled.span`
