@@ -32,10 +32,12 @@ const InputLabel = styled.label`
   display: flex;
   align-items: center;
   user-selct: none;
+  margin-right: 3.1rem;
 `;
 
-const StyledP = styled.p`
-  margin-left: 0.25rem;
+const StyledSpan = styled.span`
+  vertical-align: middle;
+  margin-left: 0.4rem;
 `;
 
 const Checkbox = ({ id, checked, onChange, label }: CheckboxProps) => {
@@ -47,7 +49,7 @@ const Checkbox = ({ id, checked, onChange, label }: CheckboxProps) => {
         onChange={onChange}
         checked={checked}
       />
-      <StyledP>{label}</StyledP>
+      <StyledSpan>{label}</StyledSpan>
     </InputLabel>
   );
 };
