@@ -30,6 +30,7 @@ const InputLabel = styled.label`
   display: flex;
   align-items: center;
   user-selct: none;
+  margin-right: 4rem;
 `;
 
 const StyledLi = styled.li`
@@ -41,11 +42,12 @@ const InputWrapper = styled.div`
   display: flex;
   flex-flow: row;
   margin-bottom: 1rem;
-  gap: 50px;
+  justify-content: space-between;
 `;
 
 const StyledSpan = styled.span`
   vertical-align: middle;
+  margin-left: 0.4rem;
 `;
 // const Radio = ({radioButtonList,labelName,initialCheck}:useRadioProps):useRadioBtnPropsType => {
 const Radio = (
