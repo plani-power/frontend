@@ -40,7 +40,7 @@ const InputWrapper = styled.div`
   height: 3rem;
   display: flex;
   justify-content: left;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 1rem;
 `;
 

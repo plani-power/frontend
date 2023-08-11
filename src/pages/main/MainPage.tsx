@@ -1,5 +1,6 @@
 import { PlanApi } from "api/plan";
 import Radio from "common/components/Radio";
+import ToggleButton from "common/components/ToggleButton";
 import { PlanList, plan } from "pages/plans/PlanList";
 import { useState } from "react";
 import styled from "styled-components";
@@ -54,17 +55,15 @@ const SortButton = styled.button`
 
 const FilterBox = styled.div`
 	width: 100%;
-	min-height: 30px;
+	height: 50px;
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	margin: 10px 0;
-
-	.filter-palce {
-
-	}
+	margin-top: 10px;
+	.filter-palce,
 	.filter-status {
-
+		height: 100%;
+		align-items: cetner;
 	}
 `
 
@@ -131,6 +130,7 @@ const MainPage = () => {
 	const [showBottomSheet, setShowBottomSheet] = useState(false);
 	const radioLabel = ['전체', '온라인', '오프라인']
 	const [place, placeFilter] = Radio(radioLabel, 'place', radioLabel[0]);
+	const {value, checked, renderToggle} = ToggleButton('모집중', '모집중', true);
 	
 	
 	const initList = async () => {
@@ -156,7 +156,7 @@ const MainPage = () => {
 				{placeFilter()}
 			</div>
 			<div className="filter-status">
-
+				{renderToggle()}
 			</div>
 		</FilterBox>
 		<PlanList plans={test} sortBy={sortBy} place={place} />
