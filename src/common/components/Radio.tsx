@@ -30,7 +30,6 @@ const InputLabel = styled.label`
   display: flex;
   align-items: center;
   user-selct: none;
-  margin-right: 5.5rem;
 `;
 
 const StyledLi = styled.li`
@@ -40,9 +39,9 @@ const StyledLi = styled.li`
 const InputWrapper = styled.div`
   height: 3rem;
   display: flex;
-  flex-flow: row;
+  justify-content: left;
+  gap: 20px;
   margin-bottom: 1rem;
-  justify-content: space-between;
 `;
 
 const StyledSpan = styled.span`
@@ -53,7 +52,7 @@ const StyledSpan = styled.span`
 const Radio = (
   radioButtonList: string[], // 라디오버튼 목록
   labelName: string, // 라디오버튼그룹 name
-  initialCheck: string // 초기값
+  initialCheck: string, // 초기값
 ): useRadioBtnPropsType => {
   const getDefaultRadioButtons = () =>
     radioButtonList.map((radioBtn: string) => ({
