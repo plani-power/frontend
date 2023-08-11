@@ -102,9 +102,9 @@ const PlanItem = (props: { plan: plan }) => {
 }
 
 
-export const PlanList = (props: { plans: plan[], sortBy: string, filter: string }) => {
+export const PlanList = (props: { plans: plan[], sortBy: string, place: string }) => {
 
-    const { plans, sortBy, filter } = props;
+    const { plans, sortBy, place } = props;
     const pageSize = 10;
     const [pageNum, setPageNum] = useState(1);
     const [list, setList] = useState<plan[]>([]);
