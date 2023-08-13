@@ -50,6 +50,13 @@ const StyledTextArea = styled.textarea`
   height: 200px;
   resize: none;
   display: block;
+  margin-top: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: inherit;
+  line-height: 1.06;
+  padding: 0.75rem 0.75rem 0.65rem 0.75rem;
 `;
 
 const ButtonWrapper = styled.div`
@@ -57,7 +64,6 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 `;
 
-//
 const StyledConditionEntry = styled.div`
   width: 420px;
   padding: 2.2rem 2rem 1.8rem 2rem;
