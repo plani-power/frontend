@@ -25,17 +25,18 @@ const InputLabel = styled.label`
   font-weight: 400;
   font-size: 14px;
   display: block;
-  margin: 20px 0 6px;
+  margin: 6px 0px 0px 0px;
 `;
 
 const InputStyled = styled.input`
   width: 100%;
-  height: 100%;
-  border: 1px solid #000;
-  font-size: 1rem;
-  line-height: 30px;
-  border-radius: 3px;
-  padding-left: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: inherit;
+  line-height: 1.06;
+  margin: 8px 0px 8px 0px;
+  padding: 0.75rem 0.75rem 0.65rem 0.75rem;
+
   ::-webkit-outer-spin-button {
     -webkit-appearance: none;
   }
