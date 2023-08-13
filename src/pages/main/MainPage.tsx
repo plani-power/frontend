@@ -1,7 +1,8 @@
 import { PlanApi } from "api/plan";
-import SelectBox, { SelectOption } from "common/components/SelectBox";
+import Radio from "common/components/Radio";
+import ToggleButton from "common/components/ToggleButton";
 import { PlanList, plan } from "pages/plans/PlanList";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 /* FIXME 더미데이터*/
@@ -51,6 +52,21 @@ const SortButton = styled.button`
 		padding-top: 3px;
 	}
 `
+
+const FilterBox = styled.div`
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-top: 10px;
+	.filter-palce,
+	.filter-status {
+		height: 100%;
+		align-items: cetner;
+	}
+`
+
 const BottomSheet = styled.ul`
 	width: 100%;
 	max-width: 420px;
@@ -90,13 +106,19 @@ const BottomSheet = styled.ul`
 	li:hover {
 		background-color: var(--white);
 	}
-	button.selected + span.material-symbols-outlined {
+	span.material-symbols-outlined {
 		display: flex;
 		width: 22px;
-		font-weight: bold;
-		color: var(--main-color);
 		font-size: 22px;
 		line-height: 38px;
+		font-weight: bold;
+		color: white;
+	}
+	button.selected {
+		font-weight: bold;
+	}
+	button.selected + span.material-symbols-outlined {
+		color: var(--main-color);
 	}
 `
 const sortList = ['최신순', '이름순', '인기순']
@@ -106,8 +128,11 @@ const MainPage = () => {
 
 	const [sortBy, setSortBy] = useState(sortList[0]);
 	const [showBottomSheet, setShowBottomSheet] = useState(false);
-	const [filter, setFilter] = useState('all');
-
+	const radioLabel = ['전체', '온라인', '오프라인']
+	const [place, placeFilter] = Radio(radioLabel, 'place', radioLabel[0]);
+	const {value, checked, renderToggle} = ToggleButton('모집중', '모집중', true);
+	
+	
 	const initList = async () => {
 		const api = new PlanApi();
 		/* TODO 정렬과 온오프 여부 필터를 파라미터로 넘기기 */
@@ -115,7 +140,6 @@ const MainPage = () => {
 	}
 
 	return <>
-
 		<ListSummary>
 			<p>
 				총 <span>{test.length ?? 0}개</span> 플랜이 있어요
@@ -127,14 +151,22 @@ const MainPage = () => {
 				</span>
 			</SortButton>
 		</ListSummary>
-		<PlanList plans={test} sortBy={sortBy} filter={filter} />
+		<FilterBox>
+			<div className="filter-place">
+				{placeFilter()}
+			</div>
+			<div className="filter-status">
+				{renderToggle()}
+			</div>
+		</FilterBox>
+		<PlanList plans={test} sortBy={sortBy} place={place} />
 		<BottomSheet className={showBottomSheet ? 'active' : ''}>
 			{sortList.map((sort) => <li key={sort}>
-				<button className={sortBy === sort ? 'selected' : ''} onClick={()=>{setSortBy(sort)}}>
-					{sort}	
+				<button className={sortBy === sort ? 'selected' : ''} onClick={() => { setSortBy(sort) }}>
+					{sort}
 				</button>
 				<span className="material-symbols-outlined" >
-					{sortBy === sort ? 'done' : ' '}
+					done
 				</span>
 			</li>)}
 		</BottomSheet>
