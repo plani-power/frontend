@@ -53,12 +53,6 @@ const InputStyled = styled.input`
   }
 `;
 
-const InputContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 50px;
-`;
-
 const Input = ({
   label,
   value,
@@ -70,15 +64,13 @@ const Input = ({
   return (
     <InputWrapper>
       {label && <InputLabel>{label}</InputLabel>}
-      <InputContainer>
-        <InputStyled
-          name={name}
-          type={type ? type : "text"}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-        />
-      </InputContainer>
+      <InputStyled
+        name={name}
+        type={type ? type : "text"}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     </InputWrapper>
   );
 };
